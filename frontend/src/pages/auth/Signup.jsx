@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { register } from "../services/user.service";
+import { register } from "../../services/user.service";
+import Input from "../../components/ui/Input";
+import Button from "../../components/ui/Button";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -70,7 +72,26 @@ export default function Signup() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-3">
-          <div>
+          <Input
+            placeholder="Enter your full name"
+            label="Full Name"
+            type="text"
+          />
+          <Input placeholder="Enter your email" label="Email" type="email" />
+          <Input
+            placeholder="Enter your password"
+            label="Password"
+            type="password"
+          />
+          <Input
+            placeholder="Confirm your password"
+            label="Password"
+            type="password"
+          />
+
+          <Button text="Signup" type="Submit" />
+
+          {/* <div>
             <label
               htmlFor="name"
               className="mb-2 block text-sm font-medium text-slate-700"
@@ -159,7 +180,7 @@ export default function Signup() {
             className="w-full rounded-lg bg-emerald-800 px-4 py-3 text-sm font-semibold text-white transition hover:bg-emerald-900 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {loading ? "Creating account..." : "Create Account"}
-          </button>
+          </button> */}
         </form>
 
         <p className="mt-7 text-center text-sm text-slate-500">

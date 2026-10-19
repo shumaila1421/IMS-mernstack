@@ -2,8 +2,8 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 import Home from "./pages/Home";
-import Signup from "./pages/Signup";
-import Login from "./pages/Login";
+import Signup from "./pages/auth/Signup";
+import Login from "./pages/auth/Login";
 
 export default function App() {
   return (
