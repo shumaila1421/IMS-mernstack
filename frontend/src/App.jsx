@@ -5,6 +5,11 @@ import Home from "./pages/Home";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import DashboardLayout from "./layouts/DashboardLayout";
+import AddProduct from "./pages/dashboard/AddProduct";
+import Product from "./pages/dashboard/Product";
+import Categories from "./pages/dashboard/Categories";
+import Suppliers from "./pages/dashboard/Suppliers";
+import ProtectedRoutes from "./routes/ProtectedRoutes";
 
 export default function App() {
   return (
@@ -25,8 +30,15 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<DashboardLayout />}>
-          <Route index element={<Overview />} />
+
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/dashboard" element={<DashboardLayout />}>
+            <Route index element={<Overview />} />
+            <Route path="products" element={<Product />} />
+            <Route path="add-product" element={<AddProduct />} />
+            <Route path="categories" element={<Categories />} />
+            <Route path="suppliers" element={<Suppliers />} />
+          </Route>
         </Route>
 
         <Route path="*" element={<Navigate to="/login" replace />} />
