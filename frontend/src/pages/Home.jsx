@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { checkHealth } from "../services/health.service";
+import Header from "../components/Header";
 
 function Home() {
   async function health() {
@@ -10,7 +11,7 @@ function Home() {
     health();
   }, []);
 
-  return <h1>Hello</h1>;
+  return <Header />;
 }
 
 export default Home;

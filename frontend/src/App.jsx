@@ -1,9 +1,10 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-
+import Overview from "./pages/dashboard/Overview";
 import Home from "./pages/Home";
-import Signup from "./pages/auth/Signup";
 import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+import DashboardLayout from "./layouts/DashboardLayout";
 
 export default function App() {
   return (
@@ -22,8 +23,11 @@ export default function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route index element={<Overview />} />
+        </Route>
 
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>

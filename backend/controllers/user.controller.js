@@ -14,10 +14,11 @@ const register = async function (req, res) {
 
     return res.json({
       message: "User registered successfully",
-      user,
+      user: { _id: user._id, name: user.name, email: user.email },
     });
   } catch (error) {
     console.log(error);
+    return res.status(500).json({ message: "Something went wrong" });
   }
 };
 
@@ -61,6 +62,7 @@ const login = async function (req, res) {
     });
   } catch (error) {
     console.log(error);
+    return res.status(500).json({ message: "Something went wrong" });
   }
 };
 
