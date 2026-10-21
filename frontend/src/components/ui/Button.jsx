@@ -3,6 +3,7 @@ export default function Button({
   type,
   onClick = () => {},
   variant = "primary",
+  disabled = false,
 }) {
   const styles = {
     primary: "bg-emerald-800 text-white hover:bg-emerald-900",
@@ -15,6 +16,7 @@ export default function Button({
       <button
         type={type}
         onClick={onClick}
+        disabled={disabled}
         className={`w-full rounded-lg px-4 py-3 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-60 ${styles[variant]}`}
       >
         {text}

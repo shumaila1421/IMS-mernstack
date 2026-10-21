@@ -9,7 +9,9 @@ export default function Sidebar() {
 
   function handleLogout() {
     setUser(null);
-    navigate("/login");
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    navigate("/login", { replace: true });
   }
   return (
     <aside className="sticky top-0 flex h-screen w-64 shrink-0 flex-col border-r border-slate-200 bg-white p-5">

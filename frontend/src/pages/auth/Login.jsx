@@ -3,23 +3,38 @@ import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
 import { useForm } from "react-hook-form";
 import { userLogin } from "../../services/user.service";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserStore } from "../../context/UserContext";
+import toast from "react-hot-toast";
 
 export default function Login() {
   const { handleSubmit, register } = useForm();
   const navigate = useNavigate();
 
   const { user, setUser } = useContext(UserStore);
+  const [loading, setLoading] = useState(false);
 
-  function handleData(data) {
-    console.log(data);
-    userLogin(data).then(function (res) {
-      console.log(res);
-      setUser(res);
+  async function handleData(data) {
+    try {
+      setLoading(true);
+
+      const res = await userLogin(data);
+
+      setUser(res.user);
+      console.log("Logged-in user:", res.user);
+      localStorage.setItem("user", JSON.stringify(res.user));
+
       localStorage.setItem("token", res.token);
-      navigate("/");
-    });
+
+      toast.success("Login successful!");
+      navigate("/dashboard");
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Login failed. Please try again.",
+      );
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -56,7 +71,11 @@ export default function Login() {
             name="password"
           />
 
-          <Button text="Login" type="submit" />
+          <Button
+            text={loading ? "Logging in..." : "Login"}
+            type="submit"
+            disabled={loading}
+          />
         </form>
 
         <p className="mt-6 text-center text-sm text-slate-500">
