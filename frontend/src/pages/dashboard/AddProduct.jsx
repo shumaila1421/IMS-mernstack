@@ -1,3 +1,3 @@
-export default function AllApplication() {
-  return <div>All Applications</div>;
+export default function AddProduct() {
+  return <div>Add product</div>;
 }

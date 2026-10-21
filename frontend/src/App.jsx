@@ -5,11 +5,11 @@ import Home from "./pages/Home";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import DashboardLayout from "./layouts/DashboardLayout";
-import AddProduct from "./pages/dashboard/AddProduct";
 import Product from "./pages/dashboard/Product";
 import Categories from "./pages/dashboard/Categories";
 import Suppliers from "./pages/dashboard/Suppliers";
 import ProtectedRoutes from "./routes/ProtectedRoutes";
+import AddProductModal from "./components/products/AddProductModal";
 
 export default function App() {
   return (
@@ -35,7 +35,7 @@ export default function App() {
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index element={<Overview />} />
             <Route path="products" element={<Product />} />
-            <Route path="add-product" element={<AddProduct />} />
+            <Route path="add-products" element={<AddProductModal />} />
             <Route path="categories" element={<Categories />} />
             <Route path="suppliers" element={<Suppliers />} />
           </Route>

@@ -18,6 +18,7 @@ app.get("/api/health", function (req, res) {
 });
 
 app.use("/api/auth", require("./routes/user.route"));
+app.use("/api/products", require("./routes/product.route"));
 
 app.listen(process.env.PORT, function () {
   console.log("Server is running on port 5000");
