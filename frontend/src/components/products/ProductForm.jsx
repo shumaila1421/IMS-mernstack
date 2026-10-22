@@ -1,12 +1,18 @@
 import { useState } from "react";
 
-export default function ProductForm({ onSubmit, loading, onCancel }) {
+export default function ProductForm({
+  onSubmit,
+  loading,
+  onCancel,
+  initialData,
+  isEditing,
+}) {
   const [formData, setFormData] = useState({
-    name: "",
-    sku: "",
-    description: "",
-    price: "",
-    quantity: "",
+    name: initialData?.name || "",
+    sku: initialData?.sku || "",
+    description: initialData?.description || "",
+    price: initialData?.price ?? "",
+    quantity: initialData?.quantity ?? "",
   });
 
   function handleChange(e) {
@@ -114,7 +120,13 @@ export default function ProductForm({ onSubmit, loading, onCancel }) {
           disabled={loading}
           className="rounded-lg bg-green-700 px-4 py-2 text-white hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {loading ? "Saving..." : "Save Product"}
+          {loading
+            ? isEditing
+              ? "Updating..."
+              : "Saving..."
+            : isEditing
+              ? "Update Product"
+              : "Save Product"}
         </button>
       </div>
     </form>
