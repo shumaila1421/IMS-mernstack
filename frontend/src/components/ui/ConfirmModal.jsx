@@ -11,7 +11,7 @@ export default function ConfirmModal({
   }
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm">
+    <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm">
       <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
         <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
 
