@@ -13,11 +13,17 @@ const createProduct = async function (req, res) {
     });
 
     return res.status(201).json({
-      message: "Product craeted successfully",
+      message: "Product created successfully",
       product,
     });
   } catch (error) {
     console.log(error);
+    if (error.code === 11000) {
+      return res.status(400).json({
+        message: "This SKU already exists",
+      });
+    }
+
     return res.status(500).json({
       message: "Something went wrong",
     });

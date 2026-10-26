@@ -26,7 +26,10 @@ export default function Login() {
 
       localStorage.setItem("token", res.token);
 
-      toast.success("Login successful!");
+      toast.success("Login successful!", {
+        duration: 1000,
+      });
+
       navigate("/dashboard");
     } catch (error) {
       toast.error(

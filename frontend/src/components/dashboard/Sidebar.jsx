@@ -48,19 +48,7 @@ export default function Sidebar() {
         >
           Products
         </NavLink>
-        <NavLink
-          className={({ isActive }) =>
-            `rounded-lg px-4 py-2.5 text-sm font-medium transition-colors ${
-              isActive
-                ? "bg-emerald-50 text-emerald-800"
-                : "text-slate-600 hover:bg-emerald-50 hover:text-emerald-800"
-            }`
-          }
-          to="/dashboard/add-product"
-          end
-        >
-          Add Product
-        </NavLink>
+
         <NavLink
           className={({ isActive }) =>
             `rounded-lg px-4 py-2.5 text-sm font-medium transition-colors ${

@@ -1,20 +1,33 @@
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
+import toast from "react-hot-toast";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { userRegister } from "../../services/user.service";
 
 export default function Register() {
   const { handleSubmit, register } = useForm();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
-  function handleData(data) {
-    console.log("Form data:", data);
+  async function handleData(data) {
+    try {
+      setLoading(true);
 
-    userRegister(data).then(function (res) {
-      console.log(res);
+      await userRegister(data);
+
+      toast.success("Account created! Please login.", {
+        duration: 1000,
+      });
       navigate("/login");
-    });
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Signup failed. Please try again.",
+      );
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -57,7 +70,11 @@ export default function Register() {
             name="password"
           />
 
-          <Button text="Signup" type="submit" />
+          <Button
+            text={loading ? "Creating account..." : "Signup"}
+            type="submit"
+            disabled={loading}
+          />
         </form>
 
         <p className="mt-7 text-center text-sm text-slate-500">

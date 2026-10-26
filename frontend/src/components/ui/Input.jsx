@@ -6,7 +6,7 @@ export default function Input({ name, placeholder, label, type, register }) {
       </label>
 
       <input
-        id="email"
+        id={name}
         type={type}
         {...register(name)}
         placeholder={placeholder}

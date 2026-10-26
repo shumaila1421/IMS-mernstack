@@ -18,6 +18,12 @@ const register = async function (req, res) {
     });
   } catch (error) {
     console.log(error);
+
+    if (error.code === 11000) {
+      return res.status(400).json({
+        message: "This email is already registered",
+      });
+    }
     return res.status(500).json({ message: "Something went wrong" });
   }
 };
