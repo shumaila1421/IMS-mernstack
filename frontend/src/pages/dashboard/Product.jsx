@@ -9,6 +9,7 @@ import {
 import ProductsTable from "../../components/products/ProductsTable";
 import ProductForm from "../../components/products/ProductForm";
 import ConfirmModal from "../../components/ui/ConfirmModal";
+import BackToDashboard from "../../components/ui/BackToDashboard";
 
 export default function Product() {
   const [products, setProducts] = useState([]);
@@ -90,6 +91,7 @@ export default function Product() {
 
   return (
     <div className="p-6">
+      <BackToDashboard />
       <div className="mb-6 flex items-center justify-between">
         <h2 className="text-2xl font-semibold">Products</h2>
 

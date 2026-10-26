@@ -48,7 +48,7 @@ const getProducts = async function (req, res) {
 const updateProduct = async function (req, res) {
   try {
     const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
+      returnDocument: "after",
       runValidators: true,
     });
 

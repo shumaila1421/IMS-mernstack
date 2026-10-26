@@ -2,6 +2,8 @@ import StatCard from "../../components/StatCard";
 import { useEffect, useState } from "react";
 import { getDashboardStats } from "../../services/dashboard.service";
 import toast from "react-hot-toast";
+import { Package, Wallet, AlertTriangle, PackageX } from "lucide-react";
+import RecentProducts from "../../components/dashboard/RecentProducts";
 
 export default function Overview() {
   const [stats, setStats] = useState(null);
@@ -54,17 +56,34 @@ export default function Overview() {
       </div>
 
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard title="Total Products" value={stats.totalProducts} />
+        <StatCard
+          title="Total Products"
+          value={stats.totalProducts}
+          icon={Package}
+        />
 
         <StatCard
           title="Total Stock Value"
           value={`PKR ${Number(stats.totalStockValue).toLocaleString("en-PK")}`}
+          icon={Wallet}
         />
 
-        <StatCard title="Low Stock Items" value={stats.lowStockCount} />
+        <StatCard
+          title="Low Stock Items"
+          value={stats.lowStockCount}
+          icon={AlertTriangle}
+          iconColor="text-amber-600"
+        />
 
-        <StatCard title="Out of Stock" value={stats.outOfStockCount} />
+        <StatCard
+          title="Out of Stock"
+          value={stats.outOfStockCount}
+          icon={PackageX}
+          iconColor="text-red-600"
+        />
       </div>
+
+      <RecentProducts products={stats.recentProducts} />
     </div>
   );
 }
