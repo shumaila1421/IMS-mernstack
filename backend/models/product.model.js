@@ -28,6 +28,16 @@ const productSchema = mongoose.Schema(
       min: 0,
       default: 0,
     },
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
+      required: true,
+    },
+    supplier: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Supplier",
+      required: true,
+    },
   },
   {
     timestamps: true,

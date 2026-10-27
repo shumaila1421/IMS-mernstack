@@ -6,12 +6,25 @@ const {
   deleteProduct,
 } = require("../controllers/product.controller");
 const authMiddleware = require("../middleware/auth.middleware");
+const allowRoles = require("../middleware/role.middleware");
 
 const router = express.Router();
 
-router.post("/", authMiddleware, createProduct);
 router.get("/", authMiddleware, getProducts);
-router.put("/:id", authMiddleware, updateProduct);
-router.delete("/:id", authMiddleware, deleteProduct);
+
+router.post("/", authMiddleware, allowRoles("admin", "manager"), createProduct);
+
+router.put(
+  "/:id",
+  authMiddleware,
+  allowRoles("admin", "manager"),
+  updateProduct,
+);
+router.delete(
+  "/:id",
+  authMiddleware,
+  allowRoles("admin", "manager"),
+  deleteProduct,
+);
 
 module.exports = router;

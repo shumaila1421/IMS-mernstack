@@ -10,6 +10,9 @@ import Categories from "./pages/dashboard/Categories";
 import Suppliers from "./pages/dashboard/Suppliers";
 import ProtectedRoutes from "./routes/ProtectedRoutes";
 import AddProductModal from "./components/products/AddProductModal";
+import RoleRoute from "./routes/RoleRoute";
+import Customer from "./pages/dashboard/Customer";
+import AddCustomerModal from "./components/customers/AddCustomerModal";
 
 export default function App() {
   return (
@@ -33,11 +36,16 @@ export default function App() {
 
         <Route element={<ProtectedRoutes />}>
           <Route path="/dashboard" element={<DashboardLayout />}>
-            <Route index element={<Overview />} />
             <Route path="products" element={<Product />} />
-            <Route path="add-products" element={<AddProductModal />} />
-            <Route path="categories" element={<Categories />} />
-            <Route path="suppliers" element={<Suppliers />} />
+            <Route path="customers" element={<Customer />} />
+
+            <Route element={<RoleRoute allowedRoles={["admin", "manager"]} />}>
+              <Route index element={<Overview />} />
+              <Route path="add-products" element={<AddProductModal />} />
+              <Route path="add-customers" element={<AddCustomerModal />} />
+              <Route path="categories" element={<Categories />} />
+              <Route path="suppliers" element={<Suppliers />} />
+            </Route>
           </Route>
         </Route>
 

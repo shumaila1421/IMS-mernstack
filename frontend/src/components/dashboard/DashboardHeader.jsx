@@ -24,7 +24,7 @@ export default function DashboardHeader() {
           <p className="text-sm font-medium text-slate-800">
             {user?.name || "User"}
           </p>
-          <p className="text-xs text-slate-500">Administrator</p>
+          <p className="text-xs capitalize text-slate-500">{user?.role}</p>
         </div>
       </div>
     </header>

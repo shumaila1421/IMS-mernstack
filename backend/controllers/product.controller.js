@@ -22,6 +22,11 @@ const createProduct = async function (req, res) {
       return res.status(400).json({
         message: "This SKU already exists",
       });
+      if (error.name === "ValidationError") {
+        return res.status(400).json({
+          message: "Please fill all required fields",
+        });
+      }
     }
 
     return res.status(500).json({
@@ -32,7 +37,9 @@ const createProduct = async function (req, res) {
 
 const getProducts = async function (req, res) {
   try {
-    const products = await Product.find();
+    const products = await Product.find()
+      .populate("category", "name")
+      .populate("supplier", "name");
 
     return res.json({
       products,
@@ -50,7 +57,9 @@ const updateProduct = async function (req, res) {
     const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
       returnDocument: "after",
       runValidators: true,
-    });
+    })
+      .populate("category", "name")
+      .populate("supplier", "name");
 
     if (!product) {
       return res.status(404).json({

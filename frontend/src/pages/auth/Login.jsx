@@ -30,7 +30,9 @@ export default function Login() {
         duration: 1000,
       });
 
-      navigate("/dashboard");
+      navigate(
+        res.user.role === "staff" ? "/dashboard/products" : "/dashboard",
+      );
     } catch (error) {
       toast.error(
         error.response?.data?.message || "Login failed. Please try again.",
