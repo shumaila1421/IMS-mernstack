@@ -97,14 +97,12 @@ export default function Customer() {
       <div className="mb-6 flex items-center justify-between">
         <h2 className="text-2xl font-semibold">Customers</h2>
 
-        {canManage && (
-          <button
-            onClick={() => navigate("/dashboard/add-customers")}
-            className="rounded-lg bg-green-700 px-4 py-2 text-white hover:bg-green-800"
-          >
-            Add Customer
-          </button>
-        )}
+        <button
+          onClick={() => navigate("/dashboard/add-customers")}
+          className="rounded-lg bg-green-700 px-4 py-2 text-white hover:bg-green-800"
+        >
+          Add Customer
+        </button>
       </div>
 
       <div className="overflow-x-auto rounded-lg border border-gray-200 bg-white">

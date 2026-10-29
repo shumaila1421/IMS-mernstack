@@ -1,4 +1,5 @@
 const Supplier = require("../models/supplier.model");
+const Product = require("../models/product.model");
 
 const createSupplier = async function (req, res) {
   try {
@@ -89,6 +90,14 @@ const updateSupplier = async function (req, res) {
 
 const deleteSupplier = async function (req, res) {
   try {
+    const productCount = await Product.countDocuments({
+      supplier: req.params.id,
+    });
+    if (productCount > 0) {
+      return res.status(400).json({
+        message: `Cannot delete: ${productCount} product(s) use this supplier`,
+      });
+    }
     const supplier = await Supplier.findByIdAndDelete(req.params.id);
 
     if (!supplier) {

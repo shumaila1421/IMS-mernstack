@@ -1,4 +1,5 @@
 const Customer = require("../models/customer.model");
+const Invoice = require("../models/invoice.model");
 
 const createCustomer = async function (req, res) {
   try {
@@ -103,6 +104,15 @@ const updateCustomer = async function (req, res) {
 
 const deleteCustomer = async function (req, res) {
   try {
+    const invoiceCount = await Invoice.countDocuments({
+      customer: req.params.id,
+    });
+
+    if (invoiceCount > 0) {
+      return res.status(400).json({
+        message: `Cannot delete: ${invoiceCount} invoice(s) belong to this customer`,
+      });
+    }
     const customer = await Customer.findByIdAndDelete(req.params.id);
 
     if (!customer) {

@@ -1,8 +1,29 @@
+import { useContext, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/dashboard/Sidebar";
 import DashboardHeader from "../components/dashboard/DashboardHeader";
+import { UserStore } from "../context/UserContext";
+import { getMe } from "../services/user.service";
 
 export default function DashboardLayout() {
+  const { setUser } = useContext(UserStore);
+
+  // Dashboard khulte hi taaza maloomat (role samet) le aao
+  useEffect(() => {
+    async function refreshUser() {
+      try {
+        const res = await getMe();
+
+        setUser(res.user);
+        localStorage.setItem("user", JSON.stringify(res.user));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    refreshUser();
+  }, [setUser]);
+
   return (
     <div className="flex min-h-screen bg-slate-50">
       <Sidebar />

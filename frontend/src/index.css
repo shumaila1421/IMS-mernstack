@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+@media print {
+  #root {
+    display: none !important;
+  }
+}
+
+@page {
+  margin: 12mm;
+}

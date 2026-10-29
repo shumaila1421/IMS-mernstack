@@ -2,13 +2,29 @@ import StatCard from "../../components/StatCard";
 import { useEffect, useState } from "react";
 import { getDashboardStats } from "../../services/dashboard.service";
 import toast from "react-hot-toast";
-import { Package, Wallet, AlertTriangle, PackageX } from "lucide-react";
+import {
+  Package,
+  Wallet,
+  AlertTriangle,
+  PackageX,
+  TrendingUp,
+  Banknote,
+  Clock,
+  FileText,
+} from "lucide-react";
 import RecentProducts from "../../components/dashboard/RecentProducts";
+import SalesChart from "../../components/dashboard/SalesChart";
+import LowStockProducts from "../../components/dashboard/LowStockProducts";
+import RecentInvoices from "../../components/dashboard/RecentInvoices";
+
+function pkr(amount) {
+  return `PKR ${Number(amount || 0).toLocaleString("en-PK")}`;
+}
 
 export default function Overview() {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     async function fetchStats() {
@@ -43,6 +59,8 @@ export default function Overview() {
     );
   }
 
+  const sales = stats.sales;
+
   return (
     <div className="min-h-screen bg-slate-50 p-6">
       <div className="mb-6">
@@ -51,11 +69,40 @@ export default function Overview() {
         </h1>
 
         <p className="mt-2 text-sm text-slate-500">
-          Here's what's happening with your inventory.
+          Here's what's happening with your inventory and sales.
         </p>
       </div>
 
+      {/* Sales ke cards */}
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <StatCard
+          title="Today's Sales"
+          value={pkr(sales.todaySales)}
+          icon={TrendingUp}
+        />
+
+        <StatCard
+          title="Revenue (Paid)"
+          value={pkr(sales.totalRevenue)}
+          icon={Banknote}
+        />
+
+        <StatCard
+          title={`Pending Payments (${sales.pendingCount})`}
+          value={pkr(sales.pendingAmount)}
+          icon={Clock}
+          iconColor="text-amber-600"
+        />
+
+        <StatCard
+          title="Total Invoices"
+          value={sales.paidCount + sales.pendingCount}
+          icon={FileText}
+        />
+      </div>
+
+      {/* Inventory ke cards */}
+      <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard
           title="Total Products"
           value={stats.totalProducts}
@@ -64,7 +111,7 @@ export default function Overview() {
 
         <StatCard
           title="Total Stock Value"
-          value={`PKR ${Number(stats.totalStockValue).toLocaleString("en-PK")}`}
+          value={pkr(stats.totalStockValue)}
           icon={Wallet}
         />
 
@@ -83,7 +130,22 @@ export default function Overview() {
         />
       </div>
 
-      <RecentProducts products={stats.recentProducts} />
+      {/* Chart aur low stock */}
+      <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <SalesChart days={sales.last7Days} />
+        <LowStockProducts
+          products={stats.lowStockProducts}
+          limit={stats.lowStockLimit}
+        />
+      </div>
+
+      {/* Recent invoices aur recent products */}
+      <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <RecentInvoices invoices={stats.recentInvoices} />
+        <div className="[&>div]:mt-0">
+          <RecentProducts products={stats.recentProducts} />
+        </div>
+      </div>
     </div>
   );
 }

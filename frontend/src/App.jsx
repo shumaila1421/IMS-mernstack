@@ -13,6 +13,9 @@ import AddProductModal from "./components/products/AddProductModal";
 import RoleRoute from "./routes/RoleRoute";
 import Customer from "./pages/dashboard/Customer";
 import AddCustomerModal from "./components/customers/AddCustomerModal";
+import Invoice from "./pages/dashboard/Invoice";
+import AddInvoiceModal from "./components/invoices/AddInvoiceModal";
+import Users from "./pages/dashboard/Users";
 
 export default function App() {
   return (
@@ -38,13 +41,19 @@ export default function App() {
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route path="products" element={<Product />} />
             <Route path="customers" element={<Customer />} />
+            <Route path="add-customers" element={<AddCustomerModal />} />
+            <Route path="invoices" element={<Invoice />} />
+            <Route path="add-invoices" element={<AddInvoiceModal />} />
 
             <Route element={<RoleRoute allowedRoles={["admin", "manager"]} />}>
               <Route index element={<Overview />} />
               <Route path="add-products" element={<AddProductModal />} />
-              <Route path="add-customers" element={<AddCustomerModal />} />
               <Route path="categories" element={<Categories />} />
               <Route path="suppliers" element={<Suppliers />} />
+            </Route>
+
+            <Route element={<RoleRoute allowedRoles={["admin"]} />}>
+              <Route path="users" element={<Users />} />
             </Route>
           </Route>
         </Route>

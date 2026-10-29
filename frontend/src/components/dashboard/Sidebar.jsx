@@ -20,7 +20,14 @@ const links = [
   {
     to: "/dashboard/customers",
     label: "Customers",
-    roles: ["admin", "manager"],
+    roles: ["admin", "manager", "staff"],
+    end: true,
+  },
+
+  {
+    to: "/dashboard/invoices",
+    label: "Invoices",
+    roles: ["admin", "manager", "staff"],
     end: true,
   },
 
@@ -33,6 +40,12 @@ const links = [
     to: "/dashboard/suppliers",
     label: "Suppliers",
     roles: ["admin", "manager"],
+    end: true,
+  },
+  {
+    to: "/dashboard/users",
+    label: "Users",
+    roles: ["admin"],
     end: true,
   },
 ];

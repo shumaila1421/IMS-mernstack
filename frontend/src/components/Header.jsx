@@ -7,8 +7,6 @@ export default function Header() {
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserStore);
 
-  console.log(user);
-
   function handleLogin() {
     navigate("/login");
   }
@@ -23,7 +21,7 @@ export default function Header() {
         <Link to="/">Home</Link>
         <Link to="/">About</Link>
         <Link to="/">Contact</Link>
-        {user.token ? (
+        {user ? (
           <Button
             text="Dashboard"
             type="button"

@@ -1,8 +1,10 @@
 const Product = require("../models/product.model");
+const Invoice = require("../models/invoice.model");
 
 const createProduct = async function (req, res) {
   try {
-    const { name, sku, description, price, quantity } = req.body;
+    const { name, sku, description, price, quantity, category, supplier } =
+      req.body;
 
     const product = await Product.create({
       name,
@@ -10,6 +12,8 @@ const createProduct = async function (req, res) {
       description,
       price,
       quantity,
+      category,
+      supplier,
     });
 
     return res.status(201).json({
@@ -18,15 +22,17 @@ const createProduct = async function (req, res) {
     });
   } catch (error) {
     console.log(error);
+
     if (error.code === 11000) {
       return res.status(400).json({
         message: "This SKU already exists",
       });
-      if (error.name === "ValidationError") {
-        return res.status(400).json({
-          message: "Please fill all required fields",
-        });
-      }
+    }
+
+    if (error.name === "ValidationError") {
+      return res.status(400).json({
+        message: "Please fill all required fields",
+      });
     }
 
     return res.status(500).json({
@@ -81,6 +87,15 @@ const updateProduct = async function (req, res) {
 
 const deleteProduct = async function (req, res) {
   try {
+    const invoiceCount = await Invoice.countDocuments({
+      "items.product": req.params.id,
+    });
+
+    if (invoiceCount > 0) {
+      return res.status(400).json({
+        message: `Cannot delete: this product is used in ${invoiceCount} invoice(s)`,
+      });
+    }
     const product = await Product.findByIdAndDelete(req.params.id);
 
     if (!product) {

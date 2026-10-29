@@ -23,7 +23,8 @@ app.use("/api/dashboard", require("./routes/dashboard.route"));
 app.use("/api/categories", require("./routes/category.route"));
 app.use("/api/suppliers", require("./routes/supplier.route"));
 app.use("/api/customers", require("./routes/customer.route"));
+app.use("/api/invoices", require("./routes/invoice.route"));
 
 app.listen(process.env.PORT, function () {
-  console.log("Server is running on port" + process.env.PORT);
+  console.log("Server is running on port " + process.env.PORT);
 });
